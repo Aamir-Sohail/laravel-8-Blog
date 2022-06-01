@@ -19,6 +19,7 @@ class BlogController extends Controller
     public function index()
     {
 
+
         return view('layouts.Blog');
     }
 
@@ -30,7 +31,10 @@ class BlogController extends Controller
 
     public function userblog()
     {
-        return view('layouts.Userblog');
+     $title = 'New User Blog';
+        $url = url('/user1');
+        $data = compact('url','title');
+        return view('layouts.Userblog')->with($data);
     }
 public function view1()
 {
@@ -71,7 +75,7 @@ public function view1()
 
         $blog =new Blog();
        $blog =Blog::all();
-       $data =compact('blog');
+
         return view('layouts.Userblogview')->with($data);
 
     }
@@ -128,7 +132,9 @@ public function view1()
         if (is_null($blog)) {
             return redirect('Userblogview');
         } else {
-            $data = compact('blog');
+            $title = 'Update Blog';
+            $url = url('/blogupdate')."/".$id;
+            $data = compact('blog','url','title');
             return view('layouts.Userblog')->with($data);
         }
     }
@@ -143,16 +149,15 @@ public function view1()
     public function update(Request $request, $id)
     {
         $blog = Blog::find($id);
-        $blog->name = $request['name'];
+        $blog->username = $request['username'];
+        $blog->blogname = $request['blogname'];
         $blog->email = $request['email'];
-        $blog->gender = $request['gender'];
-        $blog->address = $request['address'];
-        $blog->state = $request['state'];
-        $blog->country = $request['country'];
-        $blog->dob = $request['dob'];
-        $blog->points = $request['points'];
+        $blog->contact_no = $request['contact_no'];
+        $blog->description = $request['description'];
+        $blog->file = $request['file'];
+
         $blog->save();
-        return redirect()->route('Userblogview', ['blog' => $blog]);
+        return redirect('Userblogview');
     }
 
     /**

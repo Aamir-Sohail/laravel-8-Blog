@@ -16,11 +16,11 @@
     </head>
 
     <body>
-        <form action="{{ route('blog.store') }}" method="post" enctype="">
+        <form action="{{$url}}" method="POST" enctype="">
 @csrf
 
             <section class="mb-5">
-                <h4 class="mb-5 text-center"><strong>New User Blogs</strong></h4>
+                <h4 class="mb-5 text-center"><strong>{{ $title }}</strong></h4>
 
                 <div class="row d-flex justify-content-center">
                     <div class="col-md-6">

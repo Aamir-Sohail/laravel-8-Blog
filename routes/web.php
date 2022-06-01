@@ -47,7 +47,7 @@ Route::get('/Userblogview',[App\Http\Controllers\BlogController::class,'view']);
 Route::get('/Userblogview1',[App\Http\Controllers\BlogController::class,'view1']);
 Route::get('/blog/{id}', [App\Http\Controllers\BlogController::class,'destroy'])->name('blog.delete');
 Route::get('/blogedit/{id}', [App\Http\Controllers\BlogController::class,'edit'])->name('blog.edit');
-Route::post('blogupdate/{id}',[App\Http\Controllers\BlogController::class,'update'])->name('blog.edit');
+Route::post('/blogupdate/{id}',[App\Http\Controllers\BlogController::class,'update'])->name('blog.update');
 // Route::resource('/blog',BlogController::class);
 
 //About Us all routes...
