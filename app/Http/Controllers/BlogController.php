@@ -31,9 +31,17 @@ class BlogController extends Controller
 
     public function userblog()
     {
+
+
+        $blog = new Blog();
+        // $blog = new Blog();
+        // echo "<pre>";
+        // print_r($blog->toarray());
+        // echo "</pre>";
+        // die;
      $title = 'New User Blog';
         $url = url('/user1');
-        $data = compact('url','title');
+        $data = compact('url','title','blog');
         return view('layouts.Userblog')->with($data);
     }
 public function view1()
@@ -88,6 +96,7 @@ public function view1()
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'username' => 'required|string|max:255',
             'blogname' => 'required|string|max:255',
@@ -97,15 +106,29 @@ public function view1()
             'file' => 'required',
         ]);
         $blog = new Blog();
+
         $blog->username = $request->input('username');
         $blog->blogname = $request->input('blogname');
         $blog->email = $request->input('email');
         $blog->contact_no = $request->input('contact_no');
         $blog->description = $request->input('description');
-        $blog->file = $request->input('file');
+        // $blog->file = $request->input('file');
+
+        if($request->hasFile('file'))
+        {
+            $file =$request->file('file');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extension;
+            $file->move('uploads/blog/', $filename);
+            $blog->$file =$filename;
+
+        }
+
 
         $blog->save();
+
         return back()->with('success', 'The User Blog is successfully added');
+
     }
 
     /**

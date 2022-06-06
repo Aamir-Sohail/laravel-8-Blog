@@ -16,8 +16,8 @@
     </head>
 
     <body>
-        <form action="{{$url}}" method="POST" enctype="">
-@csrf
+        <form  method="post" action="{{ $url }}">
+
 
             <section class="mb-5">
                 <h4 class="mb-5 text-center"><strong>{{ $title }}</strong></h4>
@@ -40,7 +40,7 @@
                                 {{ session()->get('success') }}
                             </div>
                         @endif
-                        <form method="POST" action="{{ route('contact.store') }}">
+                        <form method="post" action="{{ $url }}"  enctype="multipart/form-data">
                             @csrf
 
                             <!-- 2 column grid layout with text inputs for the first and last names -->
@@ -60,7 +60,7 @@
                                 <div class="col">
                                     <div class="form-outline">
                                         <input type="text" id="form3Example2" name="blogname" class="form-control"
-                                            value="{{  $blog->blogname  }}" />
+                                            value="{{ $blog->blogname }}" />
                                         <span class="text-danger">
                                             @error('blogname')
                                                 {{ $message }}
@@ -74,7 +74,7 @@
                             <!-- Email input -->
                             <div class="form-outline mb-4">
                                 <input type="email" id="form3Example3" name="email" class="form-control"
-                                    value="{{  $blog->email }}" />
+                                    value="{{ $blog->email }}" />
                                 <span class="text-danger">
                                     @error('email')
                                         {{ $message }}
@@ -86,19 +86,19 @@
                             <!-- Description input -->
                             <div class="form-outline mb-4">
                                 <input type="texraera" id="form3Example4" name="description" class="form-control"
-                                    value="{{  $blog->description  }}" />
+                                    value="{{ $blog->description }}" />
                                 <span class="text-danger">
                                     @error('description')
                                         {{ $message }}
                                     @enderror
                                 </span>
-                                <label class="form-label" for="form3Example4">Description Of  Blog</label>
+                                <label class="form-label" for="form3Example4">Description Of Blog</label>
                             </div>
 
                             <!-- Contact Number input -->
                             <div class="form-outline mb-4">
                                 <input type="text" id="form3Example4" name="contact_no" class="form-control"
-                                    value="{{  $blog->contact_no}}" />
+                                    value="{{ $blog->contact_no }}" />
                                 <span class="text-danger">
                                     @error('contact_no')
                                         {{ $message }}
@@ -109,7 +109,7 @@
 
                             <div class="form-outline mb-4">
                                 <input type="file" id="form3Example4" name="file" class="form-control"
-                                    value="{{  $blog->file  }}" />
+                                    value="{{ $blog->file }}" />
                                 <span class="text-danger">
                                     @error('file')
                                         {{ $message }}
@@ -128,7 +128,7 @@
 
                             <!-- Submit button -->
                             <button type="submit" class="btn btn-primary btn-block mb-4">
-                             Send
+                                Send
                             </button>
                             {{-- <button type="" class="btn btn-danger btn-block mb-4">
                                 Clear

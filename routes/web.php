@@ -41,7 +41,8 @@ Route::resource('/contact',ContactController::class);
 
 //Admin blog and user blog routes....
 Route::get('/blog',[App\Http\Controllers\BlogController::class,'index']);
-Route::get('/blogstore',[App\Http\Controllers\BlogController::class,'store'])->name('blog.store');
+Route::post('/blogstore',[App\Http\Controllers\BlogController::class,'store'])->name('blog.store');
+Route::post('/user1',[App\Http\Controllers\BlogController::class,'store']);
 Route::get('/user1',[App\Http\Controllers\BlogController::class,'userblog']);
 Route::get('/Userblogview',[App\Http\Controllers\BlogController::class,'view']);
 Route::get('/Userblogview1',[App\Http\Controllers\BlogController::class,'view1']);
