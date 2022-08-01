@@ -19,7 +19,6 @@ class BlogController extends Controller
     public function index()
     {
 
-
         return view('layouts.Blog');
     }
 
@@ -32,39 +31,20 @@ class BlogController extends Controller
     public function userblog()
     {
 
-
         $blog = new Blog();
-        // $blog = new Blog();
+        //  $blog = new Blog();
         // echo "<pre>";
         // print_r($blog->toarray());
         // echo "</pre>";
         // die;
-     $title = 'New User Blog';
+        $title = 'New User Blog';
         $url = url('/user1');
-        $data = compact('url','title','blog');
+        $data = compact('url', 'title', 'blog');
         return view('layouts.Userblog')->with($data);
     }
-public function view1()
-{
-
-    $search = $request['search'] ?? "";
-    if ($search != "") {
-        //where Close Can put Here...
-        $blog = Blog::where('name', 'LIKE', "%$search%")->orWhere('email', 'LIKE', "%$search%")->get();
-    } else {
-        //pagination
-        $blog = Blog::paginate(10);
-    }
-
-    //   echo "<pre>";
-    //   print_r($customers->toArray());
-    //   echo "</pre>";
-    //   die;
-    $data = compact('blog', 'search');
-   return view('layouts.Userblogview')->with($data);
-}
-    public function view()
+    public function view1()
     {
+
         $search = $request['search'] ?? "";
         if ($search != "") {
             //where Close Can put Here...
@@ -79,12 +59,15 @@ public function view1()
         //   echo "</pre>";
         //   die;
         $data = compact('blog', 'search');
-       return view('layouts.Userblogview')->with($data);
-
-        $blog =new Blog();
-       $blog =Blog::all();
-
         return view('layouts.Userblogview')->with($data);
+    }
+    public function view()
+    {
+
+        $blog = new Blog();
+        $blog = Blog::all();
+
+        return view('layouts.Userblogview', compact('blog'))->with('status', 'All Data');
 
     }
 
@@ -98,12 +81,12 @@ public function view1()
     {
 
         $this->validate($request, [
-            'username' => 'required|string|max:255',
-            'blogname' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'description' => 'required|string|max:255',
-            'contact_no' => 'required|string|max:255',
-            'file' => 'required',
+            // 'username' => 'required|string|max:255',
+            // 'blogname' => 'required|string|max:255',
+            // 'email' => 'required|email|max:255',
+            // 'description' => 'required|string|max:255',
+            // 'contact_no' => 'required|string|max:255',
+            // 'file' => 'required',
         ]);
         $blog = new Blog();
 
@@ -113,17 +96,24 @@ public function view1()
         $blog->contact_no = $request->input('contact_no');
         $blog->description = $request->input('description');
         // $blog->file = $request->input('file');
-
-        if($request->hasFile('file'))
-        {
-            $file =$request->file('file');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time().'.'.$extension;
-            $file->move('uploads/blog/', $filename);
-            $blog->$file =$filename;
-
+        if($request->file('file')){
+            $file= $request->file('file');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('uploads/blog'), $filename);
+            $blog['file']= $filename;
         }
-
+        // if ($request->hasFile('file'))
+        //  {
+        //     $blog = $request->file('file');
+        //     $extension = $blog->getClientOriginalExtension();
+        //     $filename = time() . '.' . $extension;
+        //     $blog->move('uploads/blog/', $filename);
+        //     $blog->file = $filename;
+        // }
+        // echo "<pre>";
+        // print_r($blog->toarray());
+        // echo "</pre>";
+        // die;
 
         $blog->save();
 
@@ -156,8 +146,8 @@ public function view1()
             return redirect('Userblogview');
         } else {
             $title = 'Update Blog';
-            $url = url('/blogupdate')."/".$id;
-            $data = compact('blog','url','title');
+            $url = url('/blogupdate') . "/" . $id;
+            $data = compact('blog', 'url', 'title');
             return view('layouts.Userblog')->with($data);
         }
     }
@@ -177,8 +167,14 @@ public function view1()
         $blog->email = $request['email'];
         $blog->contact_no = $request['contact_no'];
         $blog->description = $request['description'];
-        $blog->file = $request['file'];
+        // $blog->file = $request['file'];
 
+        if($request->file('file')){
+            $file= $request->file('file');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('uploads/blog'), $filename);
+            $blog['file']= $filename;
+        }
         $blog->save();
         return redirect('Userblogview');
     }
@@ -201,5 +197,4 @@ public function view1()
         return back()->with('success', 'The User Blog is successfully Delete');
     }
 
-    }
-
+}

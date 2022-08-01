@@ -16,8 +16,8 @@
     </head>
 
     <body>
-        <form  method="post" action="{{ $url }}">
-
+        <form  method="post" action="{{ $url }}" enctype="multipart/form-data">
+@csrf
 
             <section class="mb-5">
                 <h4 class="mb-5 text-center"><strong>{{ $title }}</strong></h4>

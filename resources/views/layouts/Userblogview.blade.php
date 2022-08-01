@@ -4,7 +4,7 @@
 
 <form class="form-inline my-2 my-lg-0" action="" method="GET">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" name="search"
-        value="{{ $search }}">
+        value="">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     <a href="{{ url('Userblogview1') }}">
         <button class="btn btn-outline-dark" type="button"> Reset</button>
@@ -13,10 +13,7 @@
 <div class="container">
 <h3>Show All Data</h3>
 <table class="table">
-{{-- //show all data without table --}}
-{{-- <pre>
-{{print_r($customers)}}
-</pre> --}}
+
 <thead>
     <tr>
         <th>ID</th>
@@ -38,7 +35,9 @@
             <td>{{ $blogview->email }}</td>
             <td>{{ $blogview->contact_no }}</td>
             <td>{{ $blogview->description }}</td>
-            <td>{{ $blogview->file }}</td>
+            <td>
+                <img src="{{ asset('uploads/blog/'.$blogview->file) }}" width="70px" height="70px" alt="image">
+            </td>
 
 
             <td>

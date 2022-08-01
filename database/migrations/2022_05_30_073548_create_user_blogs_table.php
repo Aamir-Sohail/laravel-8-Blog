@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('contact_no');
             $table->string('description');
-            $table->string('file');
+            $table->string('file')->nullable();
 
 
             $table->timestamps();
